@@ -7,9 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+=======
+import DataService from '@/services/dataService';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+>>>>>>> e4904b7e (Update data aplikasi)
 import {
   Select,
   SelectContent,
@@ -75,9 +83,15 @@ export default function FormDialog({
       statusTermin: 'Termin 1',
       tanggalMulai: '',
       tanggalBerakhir: '',
+<<<<<<< HEAD
       personilKontrak: 0,
       posisiKontrak: '',
       personilReal: 0,
+=======
+      personilKontrak: '',
+      posisiKontrak: '',
+      personilReal: '',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: '',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -85,16 +99,31 @@ export default function FormDialog({
     };
   };
 
+<<<<<<< HEAD
+=======
+  const [personilNames, setPersonilNames] = useState<string[]>([]);
+  const [filteredPersonilNames, setFilteredPersonilNames] = useState<string[]>([]);
+
+>>>>>>> e4904b7e (Update data aplikasi)
   const handleChange = (field: string, value: any) => {
     setFormData((prev: any) => ({ ...prev, [field]: value }));
   };
 
+<<<<<<< HEAD
+=======
+  const handleChoosePersonil = (name: string) => {
+    setFormData((prev: any) => ({ ...prev, personilReal: name }));
+    setFilteredPersonilNames([]);
+  };
+
+>>>>>>> e4904b7e (Update data aplikasi)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
     onClose();
   };
 
+<<<<<<< HEAD
   const divisionTitle = {
     perencanaan: 'Perencanaan',
     pengawasan: 'Pengawasan',
@@ -103,6 +132,52 @@ export default function FormDialog({
   }[division];
 
   // Form for Tenaga Ahli
+=======
+  useEffect(() => {
+    if (!isOpen || division === 'tenagaahli') return;
+
+    const loadPersonilSource = async () => {
+      try {
+        const names = await DataService.fetchPersonilNames();
+        if (names.length) {
+          setPersonilNames(names);
+        } else {
+          const tenagaAhli = DataService.getAll<any>('tenagaahli');
+          setPersonilNames(tenagaAhli.map((item) => item.nama));
+        }
+      } catch {
+        const tenagaAhli = DataService.getAll<any>('tenagaahli');
+        setPersonilNames(tenagaAhli.map((item) => item.nama));
+      }
+    };
+
+    loadPersonilSource();
+  }, [division, isOpen]);
+
+  useEffect(() => {
+    const query = String(formData.personilReal || '').toLowerCase().trim();
+    if (!query) {
+      setFilteredPersonilNames([]);
+      return;
+    }
+
+    setFilteredPersonilNames(
+      personilNames
+        .filter((name) => name.toLowerCase().includes(query))
+        .slice(0, 6)
+    );
+  }, [formData.personilReal, personilNames]);
+
+
+  const divisionTitle = {
+    perencanaan: 'PERENCANAAN',
+    pengawasan: 'PENGAWASAN',
+    administrasi: 'ADMINISTRASI',
+    tenagaahli: 'PERSONIL',
+  }[division];
+
+  // Form for PERSONIL
+>>>>>>> e4904b7e (Update data aplikasi)
   if (division === 'tenagaahli') {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -360,21 +435,39 @@ export default function FormDialog({
               <h4 className="font-medium text-slate-700 mb-3">Personil Kontrak</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
+<<<<<<< HEAD
                   <Label htmlFor="personilKontrak">Jumlah Personil</Label>
                   <Input
                     id="personilKontrak"
                     type="number"
                     value={formData.personilKontrak}
                     onChange={(e) => handleChange('personilKontrak', parseInt(e.target.value) || 0)}
+=======
+                  <Label htmlFor="personilKontrak">Nama Personil</Label>
+                  <Textarea
+                    id="personilKontrak"
+                    value={formData.personilKontrak}
+                    onChange={(e) => handleChange('personilKontrak', e.target.value)}
+                    placeholder="Isi nama personil, satu per baris atau dipisahkan koma"
+                    className="min-h-[120px]"
+>>>>>>> e4904b7e (Update data aplikasi)
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="posisiKontrak">Posisi</Label>
+<<<<<<< HEAD
                   <Input
+=======
+                  <Textarea
+>>>>>>> e4904b7e (Update data aplikasi)
                     id="posisiKontrak"
                     value={formData.posisiKontrak}
                     onChange={(e) => handleChange('posisiKontrak', e.target.value)}
                     placeholder="Manager, Engineer, dll"
+<<<<<<< HEAD
+=======
+                    className="min-h-[120px]"
+>>>>>>> e4904b7e (Update data aplikasi)
                   />
                 </div>
               </div>
@@ -383,6 +476,7 @@ export default function FormDialog({
             <div className="border-t pt-4">
               <h4 className="font-medium text-slate-700 mb-3">Personil Real</h4>
               <div className="grid grid-cols-2 gap-4">
+<<<<<<< HEAD
                 <div className="space-y-2">
                   <Label htmlFor="personilReal">Jumlah Personil</Label>
                   <Input
@@ -399,6 +493,41 @@ export default function FormDialog({
                     value={formData.posisiReal}
                     onChange={(e) => handleChange('posisiReal', e.target.value)}
                     placeholder="Manager, Engineer, dll"
+=======
+                <div className="space-y-2 relative">
+                  <Label htmlFor="personilReal">Nama Personil Real</Label>
+                  <Textarea
+                    id="personilReal"
+                    value={formData.personilReal}
+                    onChange={(e) => handleChange('personilReal', e.target.value)}
+                    placeholder="Cari nama atau tambahkan nama baru"
+                    className="min-h-[120px]"
+                  />
+                  {formData.personilReal && filteredPersonilNames.length > 0 && (
+                    <div className="absolute z-20 mt-1 max-h-48 w-full overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg">
+                      {filteredPersonilNames.map((name) => (
+                        <button
+                          key={name}
+                          type="button"
+                          className="w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
+                          onClick={() => handleChoosePersonil(name)}
+                        >
+                          {name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-xs text-slate-500">Ambil nama dari sheet PERSONIL atau ketik nama baru.</p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="posisiReal">Posisi</Label>
+                  <Textarea
+                    id="posisiReal"
+                    value={formData.posisiReal}
+                    onChange={(e) => handleChange('posisiReal', e.target.value)}
+                    placeholder="Planner, Arsitek, Surveyor"
+                    className="min-h-[120px]"
+>>>>>>> e4904b7e (Update data aplikasi)
                   />
                 </div>
               </div>

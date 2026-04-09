@@ -32,11 +32,19 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+<<<<<<< HEAD
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'perencanaan', label: 'Perencanaan', icon: ClipboardList, division: 'perencanaan', requiresPermission: 'view' },
   { id: 'pengawasan', label: 'Pengawasan', icon: Eye, division: 'pengawasan', requiresPermission: 'view' },
   { id: 'administrasi', label: 'Administrasi', icon: FileText, division: 'administrasi', requiresPermission: 'view' },
   { id: 'tenagaahli', label: 'Tenaga Ahli', icon: Users, division: 'tenagaahli', requiresPermission: 'view' },
+=======
+  { id: 'dashboard', label: 'DASHBOARD', icon: LayoutDashboard },
+  { id: 'perencanaan', label: 'PERENCANAAN', icon: ClipboardList, division: 'perencanaan', requiresPermission: 'view' },
+  { id: 'pengawasan', label: 'PENGAWASAN', icon: Eye, division: 'pengawasan', requiresPermission: 'view' },
+  { id: 'administrasi', label: 'ADMINISTRASI', icon: FileText, division: 'administrasi', requiresPermission: 'view' },
+  { id: 'tenagaahli', label: 'PERSONIL', icon: Users, division: 'tenagaahli', requiresPermission: 'view' },
+>>>>>>> e4904b7e (Update data aplikasi)
 ];
 
 const bottomNavItems: NavItem[] = [

@@ -13,7 +13,11 @@ function ScrollArea({
   return (
     <ScrollAreaPrimitive.Root
       data-slot="scroll-area"
+<<<<<<< HEAD
       className={cn("relative", className)}
+=======
+      className={cn("relative overflow-hidden rounded-[inherit]", className)}
+>>>>>>> e4904b7e (Update data aplikasi)
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
@@ -23,7 +27,11 @@ function ScrollArea({
         {children}
       </ScrollAreaPrimitive.Viewport>
       <ScrollBar />
+<<<<<<< HEAD
       <ScrollAreaPrimitive.Corner />
+=======
+      <ScrollAreaPrimitive.Corner className="bg-slate-100" />
+>>>>>>> e4904b7e (Update data aplikasi)
     </ScrollAreaPrimitive.Root>
   )
 }
@@ -38,18 +46,30 @@ function ScrollBar({
       data-slot="scroll-area-scrollbar"
       orientation={orientation}
       className={cn(
+<<<<<<< HEAD
         "flex touch-none p-px transition-colors select-none",
         orientation === "vertical" &&
           "h-full w-2.5 border-l border-l-transparent",
         orientation === "horizontal" &&
           "h-2.5 flex-col border-t border-t-transparent",
+=======
+        "flex touch-none p-px transition-colors select-none bg-transparent",
+        orientation === "vertical" &&
+          "h-full w-3 border-l border-l-transparent",
+        orientation === "horizontal" &&
+          "h-3 flex-col border-t border-t-transparent",
+>>>>>>> e4904b7e (Update data aplikasi)
         className
       )}
       {...props}
     >
       <ScrollAreaPrimitive.ScrollAreaThumb
         data-slot="scroll-area-thumb"
+<<<<<<< HEAD
         className="bg-border relative flex-1 rounded-full"
+=======
+        className="bg-slate-300/80 hover:bg-slate-400/90 relative flex-1 rounded-full"
+>>>>>>> e4904b7e (Update data aplikasi)
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   )

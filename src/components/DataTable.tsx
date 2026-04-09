@@ -1,23 +1,31 @@
 import { useState, useMemo } from 'react';
 import {
+<<<<<<< HEAD
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+=======
+  TableCell,
+  TableHead,
+>>>>>>> e4904b7e (Update data aplikasi)
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import {
+<<<<<<< HEAD
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+=======
+>>>>>>> e4904b7e (Update data aplikasi)
   Select,
   SelectContent,
   SelectItem,
@@ -25,6 +33,16 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
+<<<<<<< HEAD
+=======
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+>>>>>>> e4904b7e (Update data aplikasi)
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -34,6 +52,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+<<<<<<< HEAD
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Search, 
@@ -43,21 +62,54 @@ import {
   Trash2, 
   FileSpreadsheet, 
   FileText, 
+=======
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  Search,
+  Plus,
+  Edit2,
+  Trash2,
+  FileSpreadsheet,
+  FileText,
+>>>>>>> e4904b7e (Update data aplikasi)
   Printer,
   Filter,
   ChevronLeft,
   ChevronRight,
+<<<<<<< HEAD
+=======
+  MoreHorizontal,
+  Eye,
+>>>>>>> e4904b7e (Update data aplikasi)
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import ExportService from '@/services/exportService';
 import type { Division, Perencanaan, Pengawasan, Administrasi, TenagaAhli } from '@/types';
 
+<<<<<<< HEAD
+=======
+type PreviewItem = Perencanaan | Pengawasan | Administrasi | TenagaAhli;
+
+>>>>>>> e4904b7e (Update data aplikasi)
 interface DataTableProps {
   division: Division;
   data: (Perencanaan | Pengawasan | Administrasi | TenagaAhli)[];
   onAdd: () => void;
   onEdit: (item: any) => void;
   onDelete: (id: string) => void;
+<<<<<<< HEAD
+=======
+  onSync?: () => Promise<void>;
+  sheetConfigured?: boolean;
+  syncInProgress?: boolean;
+>>>>>>> e4904b7e (Update data aplikasi)
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -67,15 +119,37 @@ export default function DataTable({
   data, 
   onAdd, 
   onEdit, 
+<<<<<<< HEAD
   onDelete 
 }: DataTableProps) {
   const { hasPermission } = useAuth();
+=======
+  onDelete, 
+  onSync, 
+  sheetConfigured,
+  syncInProgress,
+}: DataTableProps) {
+  const { hasPermission } = useAuth();
+  const canCreate = hasPermission('create', division);
+  const canEdit = hasPermission('edit', division);
+  const canDelete = hasPermission('delete', division);
+>>>>>>> e4904b7e (Update data aplikasi)
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [tahunFilter, setTahunFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+<<<<<<< HEAD
+=======
+  const [selectedPreview, setSelectedPreview] = useState<PreviewItem | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  const handleClosePreview = () => {
+    setSelectedPreview(null);
+    setPreviewOpen(false);
+  };
+>>>>>>> e4904b7e (Update data aplikasi)
 
   // Get unique years from data
   const availableYears = useMemo(() => {
@@ -128,11 +202,23 @@ export default function DataTable({
   };
 
   const confirmDelete = () => {
+<<<<<<< HEAD
     if (itemToDelete) {
       onDelete(itemToDelete);
       setDeleteDialogOpen(false);
       setItemToDelete(null);
     }
+=======
+    if (!itemToDelete) return;
+
+    onDelete(itemToDelete);
+    if (selectedPreview?.id === itemToDelete) {
+      setSelectedPreview(null);
+    }
+
+    setDeleteDialogOpen(false);
+    setItemToDelete(null);
+>>>>>>> e4904b7e (Update data aplikasi)
   };
 
   const handleExportPDF = () => {
@@ -229,7 +315,22 @@ export default function DataTable({
       return (
         <>
           <TableCell className="font-medium">{ta.no}</TableCell>
+<<<<<<< HEAD
           <TableCell className="font-semibold">{ta.nama}</TableCell>
+=======
+          <TableCell className="font-semibold">
+            <button
+              type="button"
+              className="text-left text-blue-600 hover:text-blue-700 transition-colors"
+              onClick={() => {
+                setSelectedPreview(ta);
+                setPreviewOpen(true);
+              }}
+            >
+              {ta.nama}
+            </button>
+          </TableCell>
+>>>>>>> e4904b7e (Update data aplikasi)
           <TableCell>{ta.gelar1}</TableCell>
           <TableCell>{ta.gelar2}</TableCell>
           <TableCell>{ta.tahunLulusGelar1}</TableCell>
@@ -238,6 +339,37 @@ export default function DataTable({
           <TableCell>{formatDate(ta.tanggalTerbitSKA)}</TableCell>
           <TableCell>{formatDate(ta.tanggalBerakhirSKA)}</TableCell>
           <TableCell>{ta.terkaitPekerjaan}</TableCell>
+<<<<<<< HEAD
+=======
+          <TableCell className="text-right">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-slate-500 hover:text-slate-700">
+                  <MoreHorizontal className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                <DropdownMenuItem onSelect={() => {
+                  setSelectedPreview(ta);
+                  setPreviewOpen(true);
+                }}>
+                  <Eye className="w-4 h-4" /> Lihat Detail
+                </DropdownMenuItem>
+                {canEdit && (
+                  <DropdownMenuItem onSelect={() => onEdit(ta)}>
+                    <Edit2 className="w-4 h-4" /> Edit
+                  </DropdownMenuItem>
+                )}
+                {canDelete && (
+                  <DropdownMenuItem variant="destructive" onSelect={() => handleDeleteClick(ta.id)}>
+                    <Trash2 className="w-4 h-4" /> Hapus
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </TableCell>
+>>>>>>> e4904b7e (Update data aplikasi)
         </>
       );
     }
@@ -247,7 +379,20 @@ export default function DataTable({
       <>
         <TableCell className="font-medium">{pekerjaan.no}</TableCell>
         <TableCell className="font-semibold max-w-xs truncate" title={pekerjaan.pekerjaan}>
+<<<<<<< HEAD
           {pekerjaan.pekerjaan}
+=======
+          <button
+            type="button"
+            className="text-left text-blue-600 hover:text-blue-700 transition-colors w-full text-left"
+            onClick={() => {
+              setSelectedPreview(pekerjaan);
+              setPreviewOpen(true);
+            }}
+          >
+            {pekerjaan.pekerjaan}
+          </button>
+>>>>>>> e4904b7e (Update data aplikasi)
         </TableCell>
         <TableCell>{pekerjaan.owner}</TableCell>
         <TableCell>{pekerjaan.pic}</TableCell>
@@ -282,10 +427,17 @@ export default function DataTable({
   };
 
   const divisionTitle = {
+<<<<<<< HEAD
     perencanaan: 'Perencanaan',
     pengawasan: 'Pengawasan',
     administrasi: 'Administrasi',
     tenagaahli: 'Tenaga Ahli',
+=======
+    perencanaan: 'PERENCANAAN',
+    pengawasan: 'PENGAWASAN',
+    administrasi: 'ADMINISTRASI',
+    tenagaahli: 'PERSONIL',
+>>>>>>> e4904b7e (Update data aplikasi)
   }[division];
 
   return (
@@ -296,8 +448,19 @@ export default function DataTable({
           <h2 className="text-2xl font-bold text-slate-800">{divisionTitle}</h2>
           <p className="text-slate-500">Kelola data {divisionTitle.toLowerCase()}</p>
         </div>
+<<<<<<< HEAD
         <div className="flex items-center gap-2">
           {hasPermission('create', division) && (
+=======
+        <div className="flex flex-wrap items-center gap-2">
+          {hasPermission('export', division) && (
+            <Button variant="outline" size="sm" onClick={handleExportExcel}>
+              <FileSpreadsheet className="w-4 h-4 mr-2" />
+              Export Data
+            </Button>
+          )}
+          {canCreate && (
+>>>>>>> e4904b7e (Update data aplikasi)
             <Button onClick={onAdd} className="bg-blue-600 hover:bg-blue-700">
               <Plus className="w-4 h-4 mr-2" />
               Tambah Data
@@ -348,7 +511,27 @@ export default function DataTable({
           </>
         )}
 
+<<<<<<< HEAD
         <div className="flex items-center gap-2 ml-auto">
+=======
+        <div className="flex flex-col gap-2 ml-auto text-right">
+          {onSync && (
+            <div className="flex items-center gap-2 justify-end">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onSync}
+                disabled={!sheetConfigured || syncInProgress}
+              >
+                <FileSpreadsheet className="w-4 h-4 mr-2" />
+                {syncInProgress ? 'Menyinkron...' : 'Sinkron Spreadsheet'}
+              </Button>
+            </div>
+          )}
+          <p className="text-xs text-slate-500">
+            Sinkronisasi saat ini hanya membaca data dari Google Sheets; perubahan lokal tidak otomatis ditulis kembali ke sheet.
+          </p>
+>>>>>>> e4904b7e (Update data aplikasi)
           {hasPermission('export', division) && (
             <>
               <Button variant="outline" size="sm" onClick={handleExportPDF}>
@@ -368,6 +551,7 @@ export default function DataTable({
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Table */}
       <div className="border rounded-lg bg-white">
         <ScrollArea className="h-[500px]">
@@ -428,6 +612,201 @@ export default function DataTable({
         </ScrollArea>
       </div>
 
+=======
+      <div className="border rounded-lg bg-white overflow-hidden">
+        <div className="h-[520px] w-full overflow-x-auto">
+          <div className="min-w-full sm:min-w-[900px] md:min-w-[1000px] lg:min-w-[1200px]">
+            <table className="min-w-full sm:min-w-[900px] md:min-w-[1000px] lg:min-w-[1200px] table-auto w-full border-separate border-spacing-0">
+              <thead className="sticky top-0 bg-white z-10">
+                <tr className="bg-slate-50">
+                  {renderHeaders()}
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData.length === 0 ? (
+                  <tr>
+                    <TableCell 
+                      colSpan={division === 'tenagaahli' ? 11 : 16} 
+                      className="text-center py-12 text-slate-500"
+                    >
+                      <div className="flex flex-col items-center gap-2">
+                        <Search className="w-8 h-8 text-slate-300" />
+                        <p>Tidak ada data ditemukan</p>
+                      </div>
+                    </TableCell>
+                  </tr>
+                ) : (
+                  paginatedData.map((item: any) => (
+                    <tr key={item.id} className="hover:bg-slate-50">
+                      {renderRow(item)}
+                      {division !== 'tenagaahli' && (
+                        <TableCell className="text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="text-slate-500 hover:text-slate-700">
+                                <MoreHorizontal className="w-5 h-5" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-44">
+                              <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                              <DropdownMenuItem onSelect={() => {
+                                setSelectedPreview(item);
+                                setPreviewOpen(true);
+                              }}>
+                                <Eye className="w-4 h-4" /> Lihat Detail
+                              </DropdownMenuItem>
+                              {canEdit && (
+                                <DropdownMenuItem onSelect={() => onEdit(item)}>
+                                  <Edit2 className="w-4 h-4" /> Edit
+                                </DropdownMenuItem>
+                              )}
+                              {canDelete && (
+                                <DropdownMenuItem variant="destructive" onSelect={() => handleDeleteClick(item.id)}>
+                                  <Trash2 className="w-4 h-4" /> Hapus
+                                </DropdownMenuItem>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      )}
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <Dialog open={previewOpen} onOpenChange={(open) => {
+        if (!open) handleClosePreview();
+      }}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {selectedPreview ? ('pekerjaan' in selectedPreview ? selectedPreview.pekerjaan : selectedPreview.nama) : 'Detail Data'}
+            </DialogTitle>
+            <DialogDescription>
+              {selectedPreview ? ('pekerjaan' in selectedPreview ? selectedPreview.owner : selectedPreview.ska) : ''}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedPreview ? (
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {canCreate && (
+                  <Button size="sm" variant="outline" onClick={onAdd}>
+                    Tambah Data
+                  </Button>
+                )}
+                {canEdit && (
+                  <Button size="sm" onClick={() => onEdit(selectedPreview)}>
+                    Edit
+                  </Button>
+                )}
+                {canDelete && (
+                  <Button size="sm" variant="destructive" onClick={() => handleDeleteClick(selectedPreview.id)}>
+                    Hapus
+                  </Button>
+                )}
+              </div>
+              {'pekerjaan' in selectedPreview ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs text-slate-500">Pekerjaan</p>
+                      <p className="font-semibold text-slate-800">{selectedPreview.pekerjaan}</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs text-slate-500">Owner / Pemberi Kerja</p>
+                      <p className="font-semibold text-slate-800">{selectedPreview.owner}</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs text-slate-500">Tanggal Mulai Kontrak</p>
+                      <p className="font-semibold text-slate-800">{formatDate(selectedPreview.tanggalMulai)}</p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <p className="text-xs text-slate-500">Tanggal Berakhir Kontrak</p>
+                      <p className="font-semibold text-slate-800">{formatDate(selectedPreview.tanggalBerakhir)}</p>
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <table className="min-w-full divide-y divide-slate-200 text-sm">
+                      <thead className="bg-slate-100">
+                        <tr>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">NO</th>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">Personil Kontrak</th>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">Posisi Kontrak</th>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">Personil Real</th>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">Posisi Real</th>
+                          <th className="px-3 py-3 text-left font-semibold text-slate-600 uppercase tracking-wide">Progress</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr className="border-t border-slate-200 hover:bg-slate-50">
+                          <td className="px-3 py-4 align-top font-medium">1</td>
+                          <td className="px-3 py-4 align-top">{selectedPreview.personilKontrak}</td>
+                          <td className="px-3 py-4 align-top whitespace-pre-line">{selectedPreview.posisiKontrak}</td>
+                          <td className="px-3 py-4 align-top whitespace-pre-line">{selectedPreview.personilReal}</td>
+                          <td className="px-3 py-4 align-top whitespace-pre-line">{selectedPreview.posisiReal}</td>
+                          <td className="px-3 py-4 align-top">
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium">{selectedPreview.progress}%</span>
+                              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+                                <div className="h-full rounded-full bg-emerald-500" style={{ width: `${selectedPreview.progress}%` }} />
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="rounded-2xl bg-slate-50 p-4">
+                      <p className="text-xs text-slate-500">Gelar</p>
+                      <p className="font-semibold text-slate-800">{selectedPreview.gelar1} / {selectedPreview.gelar2}</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-2xl bg-slate-50 p-4">
+                        <p className="text-xs text-slate-500">SKA</p>
+                        <p className="font-semibold text-slate-800">{selectedPreview.ska}</p>
+                      </div>
+                      <div className="rounded-2xl bg-slate-50 p-4">
+                        <p className="text-xs text-slate-500">Terkait Pekerjaan</p>
+                        <p className="font-semibold text-slate-800">{selectedPreview.terkaitPekerjaan}</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-2xl bg-slate-50 p-4">
+                        <p className="text-xs text-slate-500">Terbit SKA</p>
+                        <p className="font-semibold text-slate-800">{formatDate(selectedPreview.tanggalTerbitSKA)}</p>
+                      </div>
+                      <div className="rounded-2xl bg-slate-50 p-4">
+                        <p className="text-xs text-slate-500">Berakhir SKA</p>
+                        <p className="font-semibold text-slate-800">{formatDate(selectedPreview.tanggalBerakhirSKA)}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="text-center py-12 text-slate-500">
+              <p className="text-lg font-semibold">Tidak ada data yang dipilih.</p>
+              <p className="mt-2">Klik nama pekerjaan atau personil pada tabel untuk membuka detail.</p>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={handleClosePreview}>
+              Tutup
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+>>>>>>> e4904b7e (Update data aplikasi)
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
@@ -478,3 +857,7 @@ export default function DataTable({
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4904b7e (Update data aplikasi)

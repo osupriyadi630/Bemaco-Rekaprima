@@ -42,7 +42,7 @@ function AppContent() {
   };
 
   // Handle add new data
-  const handleAdd = () => {
+  function handleAdd() {
     if (!hasPermission('create', activeView as Division)) {
       toast.error('Anda tidak memiliki izin untuk menambah data');
       return;
@@ -50,7 +50,7 @@ function AppContent() {
     setFormMode('add');
     setSelectedItem(null);
     setFormDialogOpen(true);
-  };
+  }
 
   // Handle edit data
   const handleEdit = (item: any) => {
@@ -182,17 +182,49 @@ function AppContent() {
         );
       case 'pengaturan':
         return (
-          <div className="flex flex-col items-center justify-center h-[60vh]">
-            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-              <svg className="w-10 h-10 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 max-w-3xl mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-semibold text-slate-900">Pengaturan Google Sheets</h2>
+                  <p className="text-slate-500 mt-1">Hubungkan aplikasi ke Google Sheets dengan Spreadsheet ID dan API Key.</p>
+                </div>
+              </div>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <label className="text-sm font-medium text-slate-700">Spreadsheet ID</label>
+                  <Input
+                    value={sheetId}
+                    onChange={(e) => setSheetId(e.target.value)}
+                    placeholder="16G63mDpRwdnzrD1vu9vwpVCgnzs_PDTLOB342AmSu4c"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-medium text-slate-700">Google API Key</label>
+                  <Input
+                    value={sheetApiKey}
+                    onChange={(e) => setSheetApiKey(e.target.value)}
+                    placeholder="Masukkan API key"
+                  />
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <Button onClick={handleSaveSheetConfig}>Simpan Konfigurasi</Button>
+                  <Button
+                    variant="outline"
+                    onClick={handleSyncAll}
+                    disabled={!sheetId || !sheetApiKey || isSheetSyncing}
+                  >
+                    {isSheetSyncing ? 'Menyinkron...' : 'Sinkron Semua Divisi'}
+                  </Button>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-sm text-slate-600">
+                    Spreadsheet ID default sudah diisi sesuai link yang Anda berikan. Pastikan sheet ini memiliki tab bernama
+                    "Perencanaan", "Pengawasan", "Administrasi", dan "PERSONIL" agar sinkronisasi berjalan.
+                  </p>
+                </div>
+              </div>
             </div>
-            <h2 className="text-xl font-semibold text-slate-800 mb-2">Pengaturan</h2>
-            <p className="text-slate-500 text-center max-w-md">
-              Fitur pengaturan akan segera hadir.
-            </p>
           </div>
         );
       default:

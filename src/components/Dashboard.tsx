@@ -28,6 +28,7 @@ interface StatCardProps {
   trend?: 'up' | 'down' | 'neutral';
   trendValue?: string;
   color: string;
+<<<<<<< HEAD
 }
 
 function StatCard({ title, value, subtitle, icon: Icon, trend, trendValue, color }: StatCardProps) {
@@ -53,6 +54,49 @@ function StatCard({ title, value, subtitle, icon: Icon, trend, trendValue, color
             <Icon className="w-6 h-6 text-white" />
           </div>
         </div>
+=======
+  centerContent?: boolean;
+  onClick?: () => void;
+}
+
+function StatCard({ title, value, subtitle, icon: Icon, trend, trendValue, color, centerContent = false, onClick }: StatCardProps) {
+  const valueStr = String(value);
+  const isLongValue = valueStr.length > 15;
+  const isVeryLongValue = valueStr.length > 25;
+  const isCurrency = title === 'Nilai Kontrak';
+  const textSizeClass = isCurrency
+    ? 'text-sm sm:text-base'
+    : isVeryLongValue
+      ? 'text-sm sm:text-base'
+      : isLongValue
+        ? 'text-base sm:text-lg'
+        : 'text-2xl sm:text-3xl';
+  const valueBreakClass = 'break-words whitespace-normal';
+  
+  return (
+    <Card onClick={onClick} className={`shadow-sm shadow-sky-200/40 hover:shadow-lg hover:shadow-sky-300/50 transition-shadow duration-300 h-full ${onClick ? 'cursor-pointer' : ''}`}>
+      <CardContent className={`p-4 sm:p-6 flex flex-col ${centerContent ? 'items-center text-center' : 'items-start text-left'} justify-between`}>
+        <div className="flex flex-col items-center gap-4">
+          <div className={`w-14 h-14 sm:w-16 sm:h-16 ${color} rounded-2xl flex items-center justify-center`}>
+            <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+          </div>
+
+          <div className="space-y-2 max-w-full">
+            <p className="text-xs sm:text-sm font-medium text-slate-500">{title}</p>
+            <h3 className={`font-bold text-slate-800 ${textSizeClass} ${valueBreakClass} max-w-full`}>{value}</h3>
+            {subtitle && <p className="text-xs sm:text-sm text-slate-400 leading-snug max-w-full">{subtitle}</p>}
+          </div>
+        </div>
+
+        {trend && trendValue && (
+          <div className="mt-4 flex flex-col items-center gap-1 text-xs text-green-600 max-w-full">
+            <div className="flex items-center gap-1 justify-center">
+              {trend === 'up' ? <ArrowUpRight className="w-3 h-3" /> : trend === 'down' ? <ArrowDownRight className="w-3 h-3" /> : null}
+              <span className="font-medium break-words max-w-full">{trendValue}</span>
+            </div>
+          </div>
+        )}
+>>>>>>> e4904b7e (Update data aplikasi)
       </CardContent>
     </Card>
   );
@@ -149,6 +193,11 @@ function FeedCard({ title, items, type }: FeedCardProps) {
 export default function Dashboard() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
+=======
+  const [previewType, setPreviewType] = useState<'total' | 'aktif' | 'kontrak' | 'selesai' | 'division' | null>(null);
+  const [previewTarget, setPreviewTarget] = useState<string | null>(null);
+>>>>>>> e4904b7e (Update data aplikasi)
 
   useEffect(() => {
     const loadData = () => {
@@ -188,7 +237,11 @@ export default function Dashboard() {
       {/* Welcome Section */}
       <div className="flex items-center justify-between">
         <div>
+<<<<<<< HEAD
           <h2 className="text-2xl font-bold text-slate-800">Dashboard</h2>
+=======
+          <h2 className="text-2xl font-bold text-slate-800 uppercase tracking-widest">DASHBOARD</h2>
+>>>>>>> e4904b7e (Update data aplikasi)
           <p className="text-slate-500">Ringkasan data proyek PT. Bemaco Rekaprima</p>
         </div>
         <div className="text-right">
@@ -206,6 +259,11 @@ export default function Dashboard() {
           color="bg-gradient-to-br from-blue-500 to-blue-600"
           trend="up"
           trendValue="+12% dari bulan lalu"
+<<<<<<< HEAD
+=======
+          centerContent
+          onClick={() => setPreviewType('total')}
+>>>>>>> e4904b7e (Update data aplikasi)
         />
         <StatCard
           title="Pekerjaan Aktif"
@@ -215,6 +273,10 @@ export default function Dashboard() {
           color="bg-gradient-to-br from-green-500 to-green-600"
           trend="up"
           trendValue="+5 pekerjaan baru"
+<<<<<<< HEAD
+=======
+          onClick={() => setPreviewType('aktif')}
+>>>>>>> e4904b7e (Update data aplikasi)
         />
         <StatCard
           title="Nilai Kontrak"
@@ -222,6 +284,10 @@ export default function Dashboard() {
           subtitle="Total keseluruhan"
           icon={CheckCircle2}
           color="bg-gradient-to-br from-purple-500 to-purple-600"
+<<<<<<< HEAD
+=======
+          onClick={() => setPreviewType('kontrak')}
+>>>>>>> e4904b7e (Update data aplikasi)
         />
         <StatCard
           title="Pekerjaan Selesai"
@@ -231,9 +297,58 @@ export default function Dashboard() {
           color="bg-gradient-to-br from-orange-500 to-orange-600"
           trend="up"
           trendValue="+8% dari target"
+<<<<<<< HEAD
         />
       </div>
 
+=======
+          onClick={() => setPreviewType('selesai')}
+        />
+      </div>
+
+      {/* Preview Panel */}
+      {previewType && (
+        <Card>
+          <CardHeader className="flex items-center justify-between">
+            <CardTitle className="text-lg font-semibold">
+              {previewType === 'total' && 'Preview Total Pekerjaan'}
+              {previewType === 'aktif' && 'Preview Pekerjaan Aktif'}
+              {previewType === 'kontrak' && 'Preview Nilai Kontrak'}
+              {previewType === 'selesai' && 'Preview Pekerjaan Selesai'}
+              {previewType === 'division' && previewTarget && `Preview ${previewTarget}`}
+            </CardTitle>
+            <button
+              onClick={() => setPreviewType(null)}
+              className="text-slate-500 hover:text-slate-900 text-sm"
+            >
+              Tutup
+            </button>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <p className="text-sm text-slate-600">
+                  {previewType === 'total' && `Jumlah total pekerjaan saat ini adalah ${summary.totalPekerjaan}.`}
+                  {previewType === 'aktif' && `Jumlah pekerjaan aktif yang sedang berjalan adalah ${summary.pekerjaanAktif}.`}
+                  {previewType === 'kontrak' && `Total nilai kontrak saat ini mencapai ${formatCurrency(summary.totalNilaiKontrak)}.`}
+                  {previewType === 'selesai' && `Jumlah pekerjaan selesai selama tahun ini adalah ${summary.pekerjaanSelesai}.`}
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-slate-800">Contoh Pekerjaan</h3>
+                {summary.pekerjaanTerbaru.slice(0, 3).map((item) => (
+                  <div key={item.id} className="rounded-xl border border-slate-200 p-3 bg-slate-50">
+                    <p className="font-semibold text-slate-800">{item.pekerjaan}</p>
+                    <p className="text-xs text-slate-500">{item.owner} • {new Date(item.tanggalMulai).toLocaleDateString('id-ID')}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+>>>>>>> e4904b7e (Update data aplikasi)
       {/* Feed Section - Instagram-like */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <FeedCard
@@ -266,6 +381,13 @@ export default function Dashboard() {
               <div 
                 key={div.name} 
                 className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
+<<<<<<< HEAD
+=======
+                onClick={() => {
+                  setPreviewType('division');
+                  setPreviewTarget(div.name);
+                }}
+>>>>>>> e4904b7e (Update data aplikasi)
               >
                 <div className={`w-12 h-12 ${div.color} rounded-xl flex items-center justify-center`}>
                   <div.icon className="w-6 h-6 text-white" />

@@ -8,8 +8,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+<<<<<<< HEAD
 import { Building2, LogOut, User, Bell, Settings, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+=======
+import { LogOut, User, Bell, Settings, Shield } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import BemacoLogo from '@/assets/Logo-Bemaco.PNG';
+>>>>>>> e4904b7e (Update data aplikasi)
 
 interface HeaderProps {
   onLogout: () => void;
@@ -53,8 +59,13 @@ export default function Header({ onLogout }: HeaderProps) {
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
         {/* Logo */}
         <div className="flex items-center gap-3">
+<<<<<<< HEAD
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
             <Building2 className="w-5 h-5 text-white" />
+=======
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden bg-white flex items-center justify-center">
+            <img src={BemacoLogo} alt="Bemaco Rekaprima" className="h-full w-full object-contain" />
+>>>>>>> e4904b7e (Update data aplikasi)
           </div>
           <div className="hidden md:block">
             <h1 className="text-lg font-bold text-slate-800 leading-tight">

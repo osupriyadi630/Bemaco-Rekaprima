@@ -25,9 +25,15 @@ export interface BasePekerjaan {
   statusTermin: StatusTermin;
   tanggalMulai: string;
   tanggalBerakhir: string;
+<<<<<<< HEAD
   personilKontrak: number;
   posisiKontrak: string;
   personilReal: number;
+=======
+  personilKontrak: string;
+  posisiKontrak: string;
+  personilReal: string;
+>>>>>>> e4904b7e (Update data aplikasi)
   posisiReal: string;
   statusKontrak: StatusKontrak;
   statusReal: StatusReal;

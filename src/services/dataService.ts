@@ -10,7 +10,11 @@ import type {
 
 // Google Sheets Configuration
 const GOOGLE_SHEETS_CONFIG = {
+<<<<<<< HEAD
   spreadsheetId: localStorage.getItem('sheets_config_id') || '',
+=======
+  spreadsheetId: localStorage.getItem('sheets_config_id') || '16G63mDpRwdnzrD1vu9vwpVCgnzs_PDTLOB342AmSu4c',
+>>>>>>> e4904b7e (Update data aplikasi)
   apiKey: localStorage.getItem('sheets_config_api_key') || '',
 };
 
@@ -41,9 +45,15 @@ const initializeData = () => {
       statusTermin: 'Termin 2',
       tanggalMulai: '2024-01-15',
       tanggalBerakhir: '2025-01-14',
+<<<<<<< HEAD
       personilKontrak: 8,
       posisiKontrak: 'Manager, Engineer, Drafter',
       personilReal: 7,
+=======
+      personilKontrak: 'Budi Santoso, Siti Nurhaliza',
+      posisiKontrak: 'Manager, Engineer, Drafter',
+      personilReal: 'Manager, Engineer, Drafter',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Manager, Engineer, Drafter',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -61,9 +71,15 @@ const initializeData = () => {
       statusTermin: 'Termin 1',
       tanggalMulai: '2024-03-01',
       tanggalBerakhir: '2024-12-31',
+<<<<<<< HEAD
       personilKontrak: 5,
       posisiKontrak: 'Arsitek, Struktur, MEP',
       personilReal: 5,
+=======
+      personilKontrak: 'Ahmad Rizal, Dedi Kurniawan',
+      posisiKontrak: 'Arsitek, Struktur, MEP',
+      personilReal: 'Arsitek, Struktur, MEP',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Arsitek, Struktur, MEP',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -81,9 +97,15 @@ const initializeData = () => {
       statusTermin: 'Termin 3',
       tanggalMulai: '2023-06-01',
       tanggalBerakhir: '2024-05-31',
+<<<<<<< HEAD
       personilKontrak: 12,
       posisiKontrak: 'Planner, Arsitek, Surveyor',
       personilReal: 10,
+=======
+      personilKontrak: 'Siti Nurhaliza, Dicky Purnama',
+      posisiKontrak: 'Planner, Arsitek, Surveyor',
+      personilReal: 'Planner, Arsitek, Surveyor',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Planner, Arsitek, Surveyor',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -104,9 +126,15 @@ const initializeData = () => {
       statusTermin: 'Termin 2',
       tanggalMulai: '2024-02-01',
       tanggalBerakhir: '2024-11-30',
+<<<<<<< HEAD
       personilKontrak: 6,
       posisiKontrak: 'Site Manager, QC, Safety',
       personilReal: 6,
+=======
+      personilKontrak: 'Dedi Kurniawan, Eko Prasetyo',
+      posisiKontrak: 'Site Manager, QC, Safety',
+      personilReal: 'Site Manager, QC, Safety',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Site Manager, QC, Safety',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -124,9 +152,15 @@ const initializeData = () => {
       statusTermin: 'Termin 1',
       tanggalMulai: '2024-04-01',
       tanggalBerakhir: '2025-03-31',
+<<<<<<< HEAD
       personilKontrak: 8,
       posisiKontrak: 'Supervisor, Inspector',
       personilReal: 7,
+=======
+      personilKontrak: 'Eko Prasetyo, Dicky Purnama',
+      posisiKontrak: 'Supervisor, Inspector',
+      personilReal: 'Supervisor, Inspector',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Supervisor, Inspector',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -147,9 +181,15 @@ const initializeData = () => {
       statusTermin: 'Termin 2',
       tanggalMulai: '2024-01-01',
       tanggalBerakhir: '2024-12-31',
+<<<<<<< HEAD
       personilKontrak: 4,
       posisiKontrak: 'Admin, Document Control',
       personilReal: 4,
+=======
+      personilKontrak: 'Fani Wulandari, Ria Putri',
+      posisiKontrak: 'Admin, Document Control',
+      personilReal: 'Admin, Document Control',
+>>>>>>> e4904b7e (Update data aplikasi)
       posisiReal: 'Admin, Document Control',
       statusKontrak: 'Aktif',
       statusReal: 'On Track',
@@ -280,6 +320,14 @@ class DataService {
     
     data.push(newItem);
     localStorage.setItem(STORAGE_KEYS[division], JSON.stringify(data));
+<<<<<<< HEAD
+=======
+
+    if (division === 'perencanaan') {
+      this.syncAdministrasiFromPerencanaan();
+    }
+
+>>>>>>> e4904b7e (Update data aplikasi)
     return newItem;
   }
 
@@ -297,6 +345,14 @@ class DataService {
     };
     
     localStorage.setItem(STORAGE_KEYS[division], JSON.stringify(data));
+<<<<<<< HEAD
+=======
+
+    if (division === 'perencanaan') {
+      this.syncAdministrasiFromPerencanaan();
+    }
+
+>>>>>>> e4904b7e (Update data aplikasi)
     return data[index];
   }
 
@@ -308,9 +364,55 @@ class DataService {
     if (filtered.length === data.length) return false;
     
     localStorage.setItem(STORAGE_KEYS[division], JSON.stringify(filtered));
+<<<<<<< HEAD
     return true;
   }
 
+=======
+
+    if (division === 'perencanaan') {
+      this.syncAdministrasiFromPerencanaan();
+    }
+
+    return true;
+  }
+
+  static syncAdministrasiFromPerencanaan(): void {
+    const perencanaan = this.getAll<Perencanaan>('perencanaan');
+    const administrasi = this.getAll<Administrasi>('administrasi');
+    const adminByJob = new Map(administrasi.map(item => [item.pekerjaan.trim().toLowerCase(), item]));
+
+    const syncedAdministrasi = perencanaan.map(item => {
+      const key = item.pekerjaan.trim().toLowerCase();
+      const existing = adminByJob.get(key);
+
+      return {
+        id: existing?.id ?? generateId(),
+        no: existing?.no ?? item.no,
+        pekerjaan: item.pekerjaan,
+        owner: item.owner,
+        pic: item.pic,
+        nilaiKontrak: item.nilaiKontrak,
+        statusTermin: item.statusTermin,
+        tanggalMulai: item.tanggalMulai,
+        tanggalBerakhir: item.tanggalBerakhir,
+        personilKontrak: item.personilKontrak,
+        posisiKontrak: item.posisiKontrak,
+        personilReal: item.personilReal,
+        posisiReal: item.posisiReal,
+        statusKontrak: item.statusKontrak,
+        statusReal: item.statusReal,
+        progress: item.progress,
+        createdAt: existing?.createdAt ?? item.createdAt,
+        updatedAt: getTimestamp(),
+      };
+    });
+
+    const remainingAdministrasi = administrasi.filter(item => !adminByJob.has(item.pekerjaan.trim().toLowerCase()));
+    localStorage.setItem(STORAGE_KEYS.administrasi, JSON.stringify([...syncedAdministrasi, ...remainingAdministrasi]));
+  }
+
+>>>>>>> e4904b7e (Update data aplikasi)
   // Filter data
   static filter<T extends BasePekerjaan | TenagaAhli>(
     division: keyof typeof STORAGE_KEYS, 
@@ -386,11 +488,188 @@ class DataService {
     return this.getAll<T>(division);
   }
 
+<<<<<<< HEAD
   // Sync with Google Sheets (placeholder for future implementation)
   static async syncWithGoogleSheets(division: keyof typeof STORAGE_KEYS): Promise<boolean> {
     // TODO: Implement Google Sheets API integration
     console.log(`Syncing ${division} with Google Sheets...`);
     return true;
+=======
+  static getGoogleSheetsConfig() {
+    return {
+      spreadsheetId: localStorage.getItem('sheets_config_id') || GOOGLE_SHEETS_CONFIG.spreadsheetId,
+      apiKey: localStorage.getItem('sheets_config_api_key') || GOOGLE_SHEETS_CONFIG.apiKey,
+    };
+  }
+
+  static normalizeSheetHeader(header: string) {
+    return header
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/[^a-z0-9 ]/g, '');
+  }
+
+  static getSheetName(division: keyof typeof STORAGE_KEYS) {
+    if (division === 'tenagaahli') return 'Tenaga Ahli';
+    return division.charAt(0).toUpperCase() + division.slice(1);
+  }
+
+  static getSheetRange(division: keyof typeof STORAGE_KEYS) {
+    return `${this.getSheetName(division)}!A1:Z1000`;
+  }
+
+  static async fetchPersonilNames(): Promise<string[]> {
+    try {
+      const values = await this.fetchSheetValues('PERSONIL!A1:Z1000');
+      if (values.length < 2) return [];
+
+      const [headers, ...rows] = values;
+      const normalizedHeaders = headers.map(this.normalizeSheetHeader);
+      const nameIndex = normalizedHeaders.findIndex((header) => ['nama', 'name', 'nama lengkap', 'full name'].includes(header));
+
+      const names = rows
+        .map((row) => {
+          const raw = nameIndex >= 0 ? row[nameIndex] : row[0];
+          return raw ? String(raw).trim() : '';
+        })
+        .filter((name) => !!name);
+
+      return Array.from(new Set(names));
+    } catch (error) {
+      console.error('Failed to load PERSONIL names from sheet', error);
+      return [];
+    }
+  }
+
+  static parseSheetCellValue(key: string, value: string) {
+    if (value == null) return '';
+    const raw = value.toString().trim();
+
+    if (['no', 'tahunLulusGelar1', 'tahunLulusGelar2', 'progress'].includes(key)) {
+      const parsed = parseInt(raw.replace(/[^0-9-]/g, ''), 10);
+      return Number.isNaN(parsed) ? 0 : parsed;
+    }
+
+    if (key === 'nilaiKontrak') {
+      const parsed = parseFloat(raw.replace(/[^0-9.-]/g, ''));
+      return Number.isNaN(parsed) ? 0 : parsed;
+    }
+
+    return raw;
+  }
+
+  static mapSheetRowToItem(
+    division: keyof typeof STORAGE_KEYS,
+    headers: string[],
+    row: any[]
+  ) {
+    const normalizedHeaders = headers.map(this.normalizeSheetHeader);
+    const rawData: Record<string, any> = {};
+
+    normalizedHeaders.forEach((header, index) => {
+      const value = row[index] ?? '';
+      rawData[header] = value;
+    });
+
+    const headerMappings: Record<string, string> = {
+      'no': 'no',
+      'pekerjaan': 'pekerjaan',
+      'owner': 'owner',
+      'pemberi kerja': 'owner',
+      'owner pemberi kerja': 'owner',
+      'pic': 'pic',
+      'nilai kontrak': 'nilaiKontrak',
+      'nilaikontrak': 'nilaiKontrak',
+      'status termin': 'statusTermin',
+      'tanggal mulai': 'tanggalMulai',
+      'tanggalberakhir': 'tanggalBerakhir',
+      'tanggal berakhir': 'tanggalBerakhir',
+      'personil kontrak': 'personilKontrak',
+      'posisi kontrak': 'posisiKontrak',
+      'personil real': 'personilReal',
+      'posisi real': 'posisiReal',
+      'status kontrak': 'statusKontrak',
+      'status real': 'statusReal',
+      'progress': 'progress',
+      'nama': 'nama',
+      'gelar 1': 'gelar1',
+      'gelar1': 'gelar1',
+      'gelar 2': 'gelar2',
+      'gelar2': 'gelar2',
+      'tahun lulus gelar 1': 'tahunLulusGelar1',
+      'tahunlulusgelar1': 'tahunLulusGelar1',
+      'tahun lulus gelar 2': 'tahunLulusGelar2',
+      'tahunlulusgelar2': 'tahunLulusGelar2',
+      'ska': 'ska',
+      'tanggal terbit ska': 'tanggalTerbitSKA',
+      'tanggalterbitska': 'tanggalTerbitSKA',
+      'tanggal berakhir ska': 'tanggalBerakhirSKA',
+      'tanggalska': 'tanggalBerakhirSKA',
+      'tanggalberahirska': 'tanggalBerakhirSKA',
+      'tanggalberakhir ska': 'tanggalBerakhirSKA',
+      'terkait pekerjaan': 'terkaitPekerjaan',
+    };
+
+    const item: Record<string, any> = {
+      id: generateId(),
+      createdAt: getTimestamp(),
+      updatedAt: getTimestamp(),
+    };
+
+    Object.entries(rawData).forEach(([header, value]) => {
+      const mappedKey = headerMappings[header];
+      if (!mappedKey) return;
+      item[mappedKey] = this.parseSheetCellValue(mappedKey, value);
+    });
+
+    if (division !== 'tenagaahli') {
+      item.statusKontrak = item.statusKontrak || 'Aktif';
+      item.statusReal = item.statusReal || 'On Track';
+      item.progress = item.progress ?? 0;
+    }
+
+    return item;
+  }
+
+  static async fetchSheetValues(range: string): Promise<string[][]> {
+    const { spreadsheetId, apiKey } = this.getGoogleSheetsConfig();
+    if (!spreadsheetId || !apiKey) {
+      throw new Error('Google Sheets Spreadsheet ID atau API key belum dikonfigurasi.');
+    }
+
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}?key=${encodeURIComponent(apiKey)}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Google Sheets API error ${response.status}: ${errorText}`);
+    }
+
+    const json = await response.json();
+    return Array.isArray(json.values) ? json.values : [];
+  }
+
+  static async syncWithGoogleSheets(division: keyof typeof STORAGE_KEYS): Promise<boolean> {
+    try {
+      const range = this.getSheetRange(division);
+      const values = await this.fetchSheetValues(range);
+      if (values.length < 2) {
+        return false;
+      }
+
+      const [headers, ...rows] = values;
+      const syncedData = rows
+        .map((row) => this.mapSheetRowToItem(division, headers, row))
+        .filter(Boolean);
+
+      localStorage.setItem(STORAGE_KEYS[division], JSON.stringify(syncedData));
+      return true;
+    } catch (error) {
+      console.error('Google Sheets sync failed', error);
+      return false;
+    }
+>>>>>>> e4904b7e (Update data aplikasi)
   }
 
   // Configure Google Sheets
